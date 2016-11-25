@@ -1,0 +1,22 @@
+<caption>Sudoku (EmberJs)</caption>
+<colgroup>
+  <col><col><col>
+</colgroup>
+<colgroup>
+  <col><col><col>
+</colgroup>
+<colgroup>
+  <col><col><col>
+</colgroup>
+
+{{#each model as |row-group|}}
+  <tbody>
+    {{#each row-group as |row|}}
+      <tr>
+        {{#each row as |item|}}
+          {{square-item model=item.value}}
+        {{/each}}
+      </tr>
+   {{/each}}
+  </tbody>
+{{/each}}
