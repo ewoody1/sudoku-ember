@@ -1,3 +1,8 @@
-{{chess-board model=model}}
-
-<button {{action "solveMe"}}>Solve</button>
+<div class="sudoku">
+  <caption>Sudoku (EmberJs)</caption>
+  {{chess-board model=model}}
+  <div style="margin:auto">
+    <button {{action "solveMe"}}>Solve</button>
+    <button {{action "retry"}}>New</button>
+  </div>
+</div>

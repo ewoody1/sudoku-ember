@@ -1,6 +1,15 @@
+caption, button-group, button, table {
+  margin: auto;
+}
+
 table {
   border-collapse: collapse;
-  font-family: Calibri, sans-serif;
+  margin: 10px auto;
+}
+
+.sudoku {
+  display: flex;
+  flex-flow: wrap;
 }
 
 colgroup, tbody {
