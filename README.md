@@ -26,15 +26,22 @@ I also tried naked pair algorithm.
 ## TODO List
 1. solve it
 2. add unit tests
-3. test phonegap (blank screen but the url works on mobile)
-4. test ui response during solving
+3. test ui response during solving
 
 
-## Running without build
+## Running WebApp on Browser
 
 * `cd dist`
 * `python -m SimpleHTTPServer 8000`
 * Visit your app at [http://localhost:8000](http://localhost:8000).
+
+
+## Running on iOS simulator
+* `xcrun simctl install booted sudoku-ember/cordova/platforms/ios/build/emulator/SudokuEmber.app`
+* Visit your app at iOS simulator
+
+
+# Dev Env
 
 ## Prerequisites
 
@@ -71,10 +78,12 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * `ember build` (development)
 * `ember build --environment production` (production)
+* `ember cordova:build --environment=production --platform=ios` (production cordova ios app)
 
 ### Deploying
 
-TODO - How to run it on phonegap app or package to a standalone app?
+* `xcrun simctl install booted cordova/platforms/ios/build/emulator/SudokuEmber.app`
+* Visit your app at iOS simulator
 
 ## Further Reading / Useful Links
 
