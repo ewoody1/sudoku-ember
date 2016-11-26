@@ -1,0 +1,25 @@
+caption, .button-group {
+  margin: auto;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 10px auto;
+}
+
+.sudoku {
+  display: flex;
+  flex-flow: wrap;
+}
+
+colgroup, tbody {
+  border: solid medium;
+}
+
+td {
+  border: solid thin;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  padding: 0;
+}

@@ -27,6 +27,7 @@ I also tried naked pair algorithm.
 1. solve it
 2. add unit tests
 3. test phonegap (blank screen but the url works on mobile)
+4. test ui response during solving
 
 
 ## Running without build
