@@ -13,9 +13,10 @@ export default Ember.Service.extend({
         9, 0, 0, 8, 0, 2, 0, 0, 5  // 2x2
   ],
 
-  outputModel: [], // data model for visualizaion
+  outputModel: [], // data model for view
+  squareMap: {}, // a mape of square (key, value) {'A1', '1'}
 
-  getNew() {
+  setNew() {
     let rowGroups = [0, 1, 2]; // 3 row-groups in total
     rowGroups.forEach((groupId) => {
       this.createOneGroup(groupId);
@@ -52,8 +53,14 @@ export default Ember.Service.extend({
     let square = Ember.Object.create({
       value: this.get('inputData').objectAt(rowIndex * 9 + colIndex)
     });
-
     rowContent.push(square);
+
+    this.appendToMap(square.value, rowIndex, colIndex);
+  },
+
+  appendToMap(value, row, col) {
+    let key = 'ABCDEFGHI'.charAt(row) + col;
+    this.get('squareMap')[key] = `${value}`;
   },
 
   setDataModel(outputData) {
