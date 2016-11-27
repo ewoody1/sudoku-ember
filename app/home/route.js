@@ -55,7 +55,7 @@ export default Route.extend({
       - be able to abort solving manually
     */
     solveMe() {
-      //todo - find a way to bind output data among route, boardIo and sudoku solver
+      this.get('boardIo').harvest();
       let result = this.get('sudokuSolver').solve(this.get('squares'));
       if (result) {
         this.get('boardIo').setDataModel(this.get('outputData'));
@@ -71,6 +71,13 @@ export default Route.extend({
     */
     replay() {
       this.get('boardIo').reset();
+    },
+
+    /**
+    Clear the sudoku board in order to input a game manually
+    */
+    clear() {
+      this.get('boardIo').clear();
     }
   }
 });

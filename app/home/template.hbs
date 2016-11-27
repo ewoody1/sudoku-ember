@@ -1,8 +1,11 @@
 <div class="sudoku">
-  <caption>Sudoku (EmberJs)</caption>
-  {{chess-board model=model}}
   <div class="button-group">
+    <p>Sudoku (EmberJs)</p>
+
     <button {{action "solveMe"}}>Solve</button>
     <button {{action "replay"}}>Replay</button>
+    <button {{action "clear"}}>Clear</button>
   </div>
+
+  {{chess-board model=model}}
 </div>

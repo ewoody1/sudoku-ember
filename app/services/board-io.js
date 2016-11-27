@@ -58,6 +58,20 @@ export default Ember.Service.extend({
         0, 1, 8,   6, 3, 0,   2, 9, 4  // 2x2
   ],
 
+  defaultData: [
+        8, 5, 6,   0, 1, 4,   7, 3, 0, // 0x0
+        0, 9, 0,   0, 0, 0,   0, 0, 0, // 0x1
+        2, 4, 0,   0, 0, 0,   1, 6, 0, // 0x2
+
+        0, 6, 2,   0, 5, 9,   3, 0, 0, // 1x0
+        0, 3, 1,   8, 0, 2,   4, 5, 0, // 1x1
+        0, 0, 5,   3, 4, 0,   9, 2, 0, // 1x2
+
+        0, 2, 4,   0, 0, 0,   0, 7, 3, // 2x0
+        0, 0, 0,   0, 0, 0,   0, 1, 0, // 2x1
+        0, 1, 8,   6, 3, 0,   2, 9, 4  // 2x2
+  ],
+
   outputModel: [], // data model for view
 
   init() {
@@ -99,7 +113,7 @@ export default Ember.Service.extend({
 
   createOneSqure(rowContent, rowIndex, colIndex) {
     let square = Ember.Object.create({
-      value: this.get('inputData').objectAt(rowIndex * 9 + colIndex)
+      value: this.get('inputData').objectAt(rowIndex * 9 + colIndex) || ''
     });
     rowContent.push(square);
   },
@@ -109,13 +123,29 @@ export default Ember.Service.extend({
       for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
         for (let colIndex = 0; colIndex < 9; colIndex++) {
           let rowIndexInOutput = (groupIndex * 3 + rowIndex);
-          let value = outputData.objectAt(rowIndexInOutput * 9+ colIndex);
+          let value = outputData.objectAt(rowIndexInOutput * 9+ colIndex) || '';
           this.get('outputModel').objectAt(groupIndex).objectAt(rowIndex).objectAt(colIndex).set('value', value);
         }
       }
     }
   },
+  harvest() {
+    for(let groupIndex = 0; groupIndex < 3; groupIndex++) {
+      for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+        for (let colIndex = 0; colIndex < 9; colIndex++) {
+          let rowIndexInOutput = (groupIndex * 3 + rowIndex);
+          let value = this.get('outputModel').objectAt(groupIndex).objectAt(rowIndex).objectAt(colIndex).get('value');
+          this.get('inputData')[rowIndexInOutput * 9 + colIndex] = value;
+        }
+      }
+    }
+  },
+
   reset() {
-    this.setDataModel(this.get('inputData'));
+    this.setDataModel(this.get('defaultData'));
+  },
+
+  clear() {
+    this.setDataModel([]);
   }
 });

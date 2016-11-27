@@ -7,7 +7,15 @@ const {
 
 export default Component.extend({
   tagName: 'td',
-  value: computed('model', function() {
-    return this.get('model') || '' ;
-  })
+  className: ['item'],
+  digit: computed.alias('model'),
+
+  actions: {
+    changed() {
+      let digits = '123456789';
+      if (digits.indexOf(this.get('digit')) === -1) {
+        this.set('digit', '');
+      }
+    }
+  }
 });

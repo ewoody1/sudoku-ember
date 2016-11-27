@@ -11,10 +11,10 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{square-item}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$('input').val().trim(), '');
 
   this.set('data', 1);
   this.render(hbs`{{square-item model=data}}`);
 
-  assert.equal(this.$().text().trim(), '1');
+  assert.equal(this.$('input').val().trim(), '1');
 });

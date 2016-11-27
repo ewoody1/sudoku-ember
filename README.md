@@ -3,7 +3,7 @@ This is a hybrid mobile application for Sudoku game.
 The Web application is implemented using EmberJS.
 
 ## Multiple Screen Resolution
-Using flex layout, tested Portrait/Landscape modes on device.
+Using flex layout, tested in Portrait/Landscape modes on iPhoneSE.
 
 ## Solver Solution
 Constraint Propagation:
@@ -12,37 +12,56 @@ Constraint Propagation:
 
 See reference - http://norvig.com/sudoku.html
 
-I have investigated also other algorithms, such as naked pair, but not applied, since it can't solve game if there are too few digits on the board.
+* I have investigated other algorithms, such as naked pair, but not applied, since it can't solve a game if there are too few digits on the board.
+* However, this search solution is not efficient enough to detect a contradiction some cases, but 'naked triple' may work much faster.
 
-My implementation is slightly different than the reference
-1. Using two-way databinding between route and services for performance.
-2. Cultivate data assets before solving.  
+My implementation details -
+1. Using two-way databindings between route and services for performance.
+2. Cultivate data assets, peers and units, before solving.
 3. Before assign a digit into a square, validate unit lists to detect contradiction.
-4. Eliminate assigned digit on Peers instead of eliminate other values on Square to reduce iterations.
-5. Clone 'values' - I backup 'values' before assign() attempt in search(), and then revert 'values' if failed. It can reduce clone() in several scenarios.
-6. Because of (5), 'values' is possible to be a variable in solver service closure to avoid to pass around in functions.
+4. Eliminate assigned digit on Peers.
+5. Clone 'values' before an assign() in search(), and then revert 'values' if the assign() is failed. It can avoid clone() in several scenarios.
+6. Because of (5), 'values' is possible to be a variable in solver service closure in order not to pass 'values' as function parameter. In the other words, 'values' is not owned by assign() and eliminate()
 
 ## Web App Structure
 * View is in components
  - **sudoku-board** is a component in *sudoku-ember/app/components/chess-board/*
  - **square-item** is a component in *sudoku-ember/app/components/square-item/*
-* Services (in the folder - *sudoku-ember/app/services/*
-   - **board-io** input/output from/to views
-   - **sudoku-solver** depth-first search algorithm implementation
+* Services in the folder - *sudoku-ember/app/services/*
+   - **board-io** handles input/output from/to views
+   - **sudoku-solver** includes depth-first search algorithm implementation
 * Route, *sudoku-ember/app/home/route.js*, handles button events, and a solo point to access services
-* Models are bound as external parameters of views.
+* Models are bound as external parameters of views. Models and views are separated.
 * Styles are in *sudoku-ember/app/styles/app.css*
 
+## Running iOS app on iOS Simulator
 
-## Running WebApp on Browser
+* Stand in the project root folder
+* `xcrun simctl install booted cordova/platforms/ios/build/emulator/SudokuEmber.app`
+* Visit your app at iOS simulator
+
+## Running app on Mobile by PhoneGap Pairing
+* Start PhoneGap on Desktop
+* Click '+', and then click Open exiting PhoneGap project
+* Choose *cordova* folder under project, and then click Open
+* Click '>' icon on Desktop PhoneGap, see a URL in bottom green area
+* Start PhoneGap on Mobile
+* Input the URL and Connect
+
+## Running WebApp in Browser on Desktop
 
 * `cd dist`
 * `python -m SimpleHTTPServer 8000`
 * Visit your app at [http://localhost:8000](http://localhost:8000).
 
-## Running iOS app on iOS Simulator
-* `xcrun simctl install booted sudoku-ember/cordova/platforms/ios/build/emulator/SudokuEmber.app`
-* Visit your app at iOS simulator
+### Running Tests
+
+Test against Chrome
+* `ember test --server`
+
+Test against PhantomJS
+* `npm install phantomjs --save-dev`
+* `ember test`
 
 # Development Environment Setup
 
@@ -67,12 +86,6 @@ You will need the following things properly installed on your computer.
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Running Tests
-
-* `npm install phantomjs --save-dev`
-* `ember test`
-* `ember test --server`
 
 ### Building
 
