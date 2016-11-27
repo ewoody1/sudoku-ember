@@ -67,6 +67,7 @@ You will need the following things properly installed on your computer.
 
 ### Running Tests
 
+* `npm install phantomjs --save-dev`
 * `ember test`
 * `ember test --server`
 
