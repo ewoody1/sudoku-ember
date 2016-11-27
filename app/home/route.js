@@ -22,7 +22,7 @@ export default Route.extend({
   /**
   A databinding for solver values
   */
-  squares: computed.alias('boardIo.squareMap'),
+  squares: computed.alias('boardIo.inputData'),
   /**
   A databinding between outputData and views
   */
@@ -49,6 +49,10 @@ export default Route.extend({
     Request solver service to solve a sudoku, and then
     Call boardIo service to set result on board, when it is done,
     'boardIo.outputModel' changes view via databinding
+
+    TODO:
+      - show ui indicator while computing since the hardes one can take several minutes
+      - be able to abort solving manually
     */
     solveMe() {
       //todo - find a way to bind output data among route, boardIo and sudoku solver

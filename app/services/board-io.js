@@ -29,9 +29,6 @@ export default Ember.Service.extend({
       1, 0, 4,   0, 0, 0,   0, 0, 0  // 2x2
   ],
 
-
-
-
   inputData: [
         0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x0
         0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x1
@@ -46,19 +43,7 @@ export default Ember.Service.extend({
         0, 0, 0,   0, 0, 0,   0, 0, 0  // 2x2
   ],
 
-  inputData: [
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x0
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x1
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x2
-
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x0
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x1
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x2
-
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x0
-        0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x1
-        0, 0, 0,   0, 0, 0,   0, 0, 0  // 2x2
-  ],*/
+  */
   inputData: [
         8, 5, 6,   0, 1, 4,   7, 3, 0, // 0x0
         0, 9, 0,   0, 0, 0,   0, 0, 0, // 0x1
@@ -74,7 +59,6 @@ export default Ember.Service.extend({
   ],
 
   outputModel: [], // data model for view
-  squareMap: {}, // a mape of square values (key, value) {'A1', '1'}
 
   init() {
     this.setNew(); // init a new game
@@ -118,18 +102,6 @@ export default Ember.Service.extend({
       value: this.get('inputData').objectAt(rowIndex * 9 + colIndex)
     });
     rowContent.push(square);
-
-    this.appendToMap(square.value, rowIndex, colIndex);
-  },
-
-  appendToMap(value, row, col) {
-    col++; // index starts from 1 instead of 0
-    let key = 'ABCDEFGHI'.charAt(row) + col;
-    if (value === 0) {
-      // set possibilities
-      value = 123456789;
-    }
-    this.get('squareMap')[key] = `${value}`;
   },
 
   setDataModel(outputData) {

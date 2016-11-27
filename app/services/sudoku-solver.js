@@ -202,17 +202,6 @@ export default Ember.Service.extend({
   },
 
   /**
-  Only for debug
-  validate 'values'
-  */
-  /*validateValues() {
-    for (let s of this.get('squares')) {
-      let length = this.get('values')[s].length;
-      Ember.assert('Must have a digit at least', length > 0);
-    }
-  },*/
-
-  /**
   Using depth-first search and propagation, try all possible values
   */
   search() {
@@ -246,9 +235,43 @@ export default Ember.Service.extend({
     this.set('outputData', output);
   },
 
-  //todo - databinding for values and output data
-  solve(values) {
-    this.set('values', this.clone(values));
+  generateValues(input) {
+    let digits = '123456789';
+    this.get('squares').forEach((s, index) => {
+      let d = input[index].toString();
+      this.get('values')[s] = this.isSingleValue(d) ? d : digits;
+    });
+  },
+
+  isSingleValue(d) {
+    let digits = '123456789';
+    if (d.length === 1 && digits.indexOf(d) !== -1) {
+      return true;
+    }
+    return false;
+  },
+
+  /**
+  Only using in unit test to verify solving result.
+  Returns true if the 'values' is solved,
+  otherwise, false.
+  */
+  isSolved() {
+    let result = true;
+    this.get('squares').forEach((s) => {
+      let value = this.get('values')[s];
+      if (this.isSingleValue(value)) {
+        if (!this.validateUnits(s, value)){
+          result = false;
+          return;
+        }
+      }
+    });
+    return result;
+  },
+
+  solve(input) {
+    this.generateValues(input);
     if (!this.parseGrid()) {
       return false;
     }

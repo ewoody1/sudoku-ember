@@ -21,12 +21,12 @@ test('it has display model', function(assert) {
   assert.ok(Ember.isArray(route.get('displayModel'), 'display model is an array'));
 });
 
-test('it has values of the input data', function(assert) {
+test('it has input data', function(assert) {
   let route = this.subject();
-  assert.notOk(Ember.isEmpty(route.get('squares'), 'it has values'));
+  assert.notOk(Ember.isEmpty(route.get('squares'), 'it has input data'));
 });
 
-test('solve action can solve default game', function(assert) {
+test('solve action can a game', function(assert) {
   let route = this.subject();
   route.actions.solveMe.call(route);
   assert.notOk(Ember.isEmpty(route.get('outputData'), 'it has outputData after solve action'));

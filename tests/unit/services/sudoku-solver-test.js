@@ -57,90 +57,20 @@ test('C2 has expected units', function(assert) {
 
 test('solve case 1', function(assert) {
   let service = this.subject();
-  let values = {
-    "A1": "8",
-    "A2": "5",
-    "A3": "6",
-    "A4": "123456789",
-    "A5": "1",
-    "A6": "4",
-    "A7": "7",
-    "A8": "3",
-    "A9": "123456789",
-    "B1": "123456789",
-    "B2": "9",
-    "B3": "123456789",
-    "B4": "123456789",
-    "B5": "123456789",
-    "B6": "123456789",
-    "B7": "123456789",
-    "B8": "123456789",
-    "B9": "123456789",
-    "C1": "2",
-    "C2": "4",
-    "C3": "123456789",
-    "C4": "123456789",
-    "C5": "123456789",
-    "C6": "123456789",
-    "C7": "1",
-    "C8": "6",
-    "C9": "123456789",
-    "D1": "123456789",
-    "D2": "6",
-    "D3": "2",
-    "D4": "123456789",
-    "D5": "5",
-    "D6": "9",
-    "D7": "3",
-    "D8": "123456789",
-    "D9": "123456789",
-    "E1": "123456789",
-    "E2": "3",
-    "E3": "1",
-    "E4": "8",
-    "E5": "123456789",
-    "E6": "2",
-    "E7": "4",
-    "E8": "5",
-    "E9": "123456789",
-    "F1": "123456789",
-    "F2": "123456789",
-    "F3": "5",
-    "F4": "3",
-    "F5": "4",
-    "F6": "123456789",
-    "F7": "9",
-    "F8": "2",
-    "F9": "123456789",
-    "G1": "123456789",
-    "G2": "2",
-    "G3": "4",
-    "G4": "123456789",
-    "G5": "123456789",
-    "G6": "123456789",
-    "G7": "123456789",
-    "G8": "7",
-    "G9": "3",
-    "H1": "123456789",
-    "H2": "123456789",
-    "H3": "123456789",
-    "H4": "123456789",
-    "H5": "123456789",
-    "H6": "123456789",
-    "H7": "123456789",
-    "H8": "1",
-    "H9": "123456789",
-    "I1": "123456789",
-    "I2": "1",
-    "I3": "8",
-    "I4": "6",
-    "I5": "3",
-    "I6": "123456789",
-    "I7": "2",
-    "I8": "9",
-    "I9": "4"
-  };
-  service.solve(values);
+  let input = [
+        8, 5, 6,   0, 1, 4,   7, 3, 0, // 0x0
+        0, 9, 0,   0, 0, 0,   0, 0, 0, // 0x1
+        2, 4, 0,   0, 0, 0,   1, 6, 0, // 0x2
+
+        0, 6, 2,   0, 5, 9,   3, 0, 0, // 1x0
+        0, 3, 1,   8, 0, 2,   4, 5, 0, // 1x1
+        0, 0, 5,   3, 4, 0,   9, 2, 0, // 1x2
+
+        0, 2, 4,   0, 0, 0,   0, 7, 3, // 2x0
+        0, 0, 0,   0, 0, 0,   0, 1, 0, // 2x1
+        0, 1, 8,   6, 3, 0,   2, 9, 4  // 2x2
+  ];
+  service.solve(input);
   let expected = [
     8, 5, 6, 2, 1, 4, 7, 3, 9,
     1, 9, 3, 5, 7, 6, 8, 4, 2,
@@ -153,5 +83,109 @@ test('solve case 1', function(assert) {
     5, 1, 8, 6, 3, 7, 2, 9, 4
   ];
 
-  assert.equal(service.get('outputData').toString, expected.toString(), 'case 1 solved!');
+  assert.ok(service.isSolved(), 'case 1 solved!');
+  assert.equal(service.get('outputData').toString(), expected.toString(), 'case 1 result is expected!');
 });
+
+test('solve case 2', function(assert) {
+  let service = this.subject();
+  let input = [
+        8, 5, 6,   0, 1, 4,   7, 3, 0, // 0x0
+        0, 9, 0,   0, 0, 0,   0, 0, 0, // 0x1
+        2, 4, 0,   0, 0, 0,   1, 6, 0, // 0x2
+
+        0, 6, 2,   0, 5, 9,   3, 0, 1, // 1x0
+        0, 3, 1,   8, 0, 2,   4, 5, 1, // 1x1
+        0, 0, 5,   3, 4, 0,   9, 2, 0, // 1x2
+
+        0, 2, 4,   0, 0, 0,   0, 7, 3, // 2x0
+        0, 0, 0,   0, 0, 0,   0, 1, 0, // 2x1
+        0, 1, 8,   6, 3, 0,   2, 9, 4  // 2x2
+  ];
+  service.solve(input);
+
+  assert.notOk(service.isSolved(), 'case 2 cannot be solved!');
+  assert.equal(service.get('outputData').toString(), '', 'case 2 result is expected!');
+});
+
+test('solve case 3', function(assert) {
+  let service = this.subject();
+  let input = [
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x0
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x1
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x2
+
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x0
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x1
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x2
+
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x0
+        0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x1
+        0, 0, 0,   0, 0, 0,   0, 0, 0  // 2x2
+  ];
+  service.solve(input);
+
+  assert.ok(service.isSolved(), 'case 3 can be solved as ' + service.get('outputData').toString());
+});
+
+test('solve case 4', function(assert) {
+  let service = this.subject();
+  let input = [
+        4, 1, 7,   3, 6, 9,   8, 2, 5, // 0x0
+        0, 3, 2,   1, 5, 8,   9, 4, 7, // 0x1
+        0, 5, 0,   7, 2, 0,   0, 0, 0, // 0x2
+
+        0, 2, 0,   0, 0, 0,   0, 6, 0, // 1x0
+        0, 0, 0,   0, 8, 0,   4, 0, 0, // 1x1
+        0, 0, 0,   0, 1, 0,   0, 0, 0, // 1x2
+
+        0, 0, 0,   6, 0, 3,   0, 7, 0, // 2x0
+        5, 0, 0,   2, 0, 0,   0, 0, 0, // 2x1
+        1, 0, 4,   0, 0, 0,   0, 0, 0  // 2x2
+  ];
+  service.solve(input);
+
+  assert.ok(service.isSolved(), 'case 4 can be solved as ' + service.get('outputData').toString());
+});
+
+test('solve case 5', function(assert) {
+  let service = this.subject();
+  let input = [
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x0
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x1
+    0, 0, 0,   7, 0, 0,   0, 0, 0, // 0x2
+
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x0
+    0, 0, 0,   0, 0, 0,   4, 0, 0, // 1x1
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 1x2
+
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x0
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 2x1
+    0, 0, 0,   0, 0, 0,   0, 0, 0  // 2x2
+  ];
+  service.solve(input);
+
+  assert.ok(service.isSolved(), 'case 5 can be solved as ' + service.get('outputData').toString());
+});
+
+/*
+// comment it out since it takes too much time, about 25min
+test('solve hardest case 6 on page 8', function(assert) {
+  let service = this.subject();
+  let input = [
+    0, 0, 0,   0, 0, 5,   0, 8, 0, // 0x0
+    0, 0, 0,   6, 0, 1,   0, 4, 3, // 0x1
+    0, 0, 0,   0, 0, 0,   0, 0, 0, // 0x2
+
+    0, 1, 0,   5, 0, 0,   0, 0, 0, // 1x0
+    0, 0, 0,   1, 0, 6,   0, 0, 0, // 1x1
+    0, 0, 0,   0, 0, 0,   0, 0, 5, // 1x2
+
+    5, 3, 0,   0, 0, 0,   0, 6, 1, // 2x0
+    0, 0, 0,   0, 0, 0,   0, 0, 4, // 2x1
+    0, 0, 0,   0, 0, 0,   0, 0, 0  // 2x2
+  ];
+  service.solve(input);
+
+  assert.notOk(service.isSolved(), 'case 6 cannot be solved!');
+});*/
