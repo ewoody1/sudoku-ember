@@ -49,9 +49,6 @@ export default Route.extend({
     Request solver service to solve a sudoku, and then
     Call boardIo service to set result on board, when it is done,
     'boardIo.outputModel' changes view via databinding
-    TODO:
-       - handle failures if the game can't be solved.
-       - handle UI animation if the solve takes long time.
     */
     solveMe() {
       //todo - find a way to bind output data among route, boardIo and sudoku solver
