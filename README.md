@@ -54,14 +54,6 @@ My implementation details -
 * `python -m SimpleHTTPServer 8000`
 * Visit your app at [http://localhost:8000](http://localhost:8000).
 
-### Running Tests
-
-Test against Chrome
-* `ember test --server`
-
-Test against PhantomJS
-* `npm install phantomjs --save-dev`
-* `ember test`
 
 # Development Environment Setup
 
@@ -92,6 +84,17 @@ You will need the following things properly installed on your computer.
 * `ember build` (development)
 * `ember build --environment production` (production)
 * `ember cordova:build --environment=production --platform=ios` (production cordova ios app)
+
+### Running Tests
+
+Test against Chrome
+* `ember test --server`
+* Uncheck *Hide passed tests*
+* See test35-38, it takes about 40ms-80ms for a solver test.  
+
+Test against PhantomJS
+* `npm install phantomjs --save-dev`
+* `ember test`
 
 ### Deploying
 
