@@ -20,9 +20,13 @@ export default Route.extend({
   */
   displayModel: computed.alias('boardIo.outputModel'),
   /**
-  A databinding for solver
+  A databinding for solver values
   */
   squares: computed.alias('boardIo.squareMap'),
+  /**
+  A databinding between outputData and views
+  */
+  outputData: computed.alias('sudokuSolver.outputData'),
   /**
    Provide data model for components in view
    @return {array}
@@ -36,7 +40,8 @@ export default Route.extend({
     'boardIo.outputModel' changes view via databinding
   */
   init() {
-    this.get('boardIo').setNew();
+    this.get('boardIo'); // impliedly call boardIo.init()
+    this.get('sudokuSolver'); // impliedly call sudokuSolver.init()
   },
 
   actions: {
@@ -49,8 +54,13 @@ export default Route.extend({
        - handle UI animation if the solve takes long time.
     */
     solveMe() {
-      let outputData = this.get('sudokuSolver').solve(this.get('squares'));
-      this.get('boardIo').setDataModel(outputData);
+      //todo - find a way to bind output data among route, boardIo and sudoku solver
+      let result = this.get('sudokuSolver').solve(this.get('squares'));
+      if (result) {
+        this.get('boardIo').setDataModel(this.get('outputData'));
+      } else {
+        window.alert('not solvable!');
+      }
     },
 
     /**

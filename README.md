@@ -14,14 +14,18 @@ I also tried naked pair algorithm.
 
 ## Web App Structure
 
-1. The Sudoku board is a component in /sudoku-ember/app/components/chess-board
-2. The square is a component in /sudoku-ember/app/components/square-item
-     TODO: a. The square should be able to display and select possibilities.
-           b. The square should be able to input a new game.  
-3. Two services - board-io and sudoku-solver
-4. One route, /app/home/route.js, handles button events and as the solo access point for services
-5. Views are in component .hbs files separated to control logic.
-5. Models are bound as external parameters of the components.
+* Components
+ - Sudoku board is a component in sudoku-ember/app/components/chess-board
+ - Square item is a component in sudoku-ember/app/components/square-item
+     TODO: a. Display possibilities and select a candidate.
+           b. Input a digit.  
+* Services are in sudoku-ember/app/services/
+   - board-io input/output from/to views
+   - sudoku-solver depth-first search algorithm implementation
+* Route, sudoku-ember/app/home/route.js, handles button events, and a solo service access point
+* Views are in component .hbs files separated to control logic.
+* Models are bound as views' external parameters.
+* Styles are in sudoku-ember/app/styles/app.css
 
 ## TODO List
 1. solve it
@@ -36,12 +40,11 @@ I also tried naked pair algorithm.
 * Visit your app at [http://localhost:8000](http://localhost:8000).
 
 
-## Running on iOS simulator
+## Running iOS app on iOS Simulator
 * `xcrun simctl install booted sudoku-ember/cordova/platforms/ios/build/emulator/SudokuEmber.app`
 * Visit your app at iOS simulator
 
-
-# Dev Env
+# Dev Env Setup
 
 ## Prerequisites
 
@@ -64,10 +67,6 @@ You will need the following things properly installed on your computer.
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
 
 ### Running Tests
 
