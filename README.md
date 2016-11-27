@@ -12,12 +12,15 @@ Constraint Propagation:
 
 See reference - http://norvig.com/sudoku.html
 
-I investigated also other algorithms, such as naked pair, but not applied.
+I have investigated also other algorithms, such as naked pair, but not applied, since it can't solve game if there are too few digits on the board.
+
 My implementation is slightly different than the reference
-1. Using javascript databinding as much as possible between route and services for performance.
+1. Using two-way databinding between route and services for performance.
 2. Cultivate data assets before solving.  
 3. Before assign a digit into a square, validate unit lists to detect contradiction.
 4. Eliminate assigned digit on Peers instead of eliminate other values on Square to reduce iterations.
+5. Clone 'values' - I backup 'values' before assign() attempt in search(), and then revert 'values' if failed. It can reduce clone() in several scenarios.
+6. Because of (5), 'values' is possible to be a variable in solver service closure to avoid to pass around in functions.
 
 ## Web App Structure
 * View is in components
